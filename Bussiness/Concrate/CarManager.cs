@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspect.Autofac;
 using Business.Constants;
 using Core.Utilities.Business;
 using Core.Utilities.Results.Abstract;
@@ -25,6 +26,7 @@ namespace Business.Concrate
             _carImageService = carImageService;
         }
 
+        [SecuredOperation("Car.Add")]
         public IResult Add(Car car)
         {
             
@@ -39,7 +41,7 @@ namespace Business.Concrate
             _carDal.Delete(car);
             return new SuccessResult(Messages.DeleteSuccessful);
         }
-
+        [SecuredOperation("Product.List")]
         public IDataResult<List<Car>> GetAll()
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.ListingSuccessful);
